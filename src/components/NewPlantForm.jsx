@@ -1,13 +1,62 @@
-import React from "react";
 
-function NewPlantForm() {
+import React, { useState } from "react";
+
+function NewPlantForm({ onAddPlant }) {
+  const [name, setName] = useState("");
+  const [image, setImage] = useState("");
+  const [price, setPrice] = useState("");
+
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    
+    const newPlant = {
+  name: name,
+  image: image,
+  price: price,
+};
+
+    onAddPlant(newPlant);
+
+    // Clear the input fields
+    setName("");
+    setImage("");
+    setPrice("");
+  }
+
   return (
     <div className="new-plant-form">
       <h2>New Plant</h2>
-      <form>
-        <input type="text" name="name" placeholder="Plant name" />
-        <input type="text" name="image" placeholder="Image URL" />
-        <input type="number" name="price" step="0.01" placeholder="Price" />
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="name"
+          placeholder="Plant name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+
+        <input
+          type="text"
+          name="image"
+          placeholder="Image URL"
+          value={image}
+          onChange={(e) => setImage(e.target.value)}
+          required
+        />
+
+        <input
+          type="number"
+          name="price"
+          step="0.01"
+          placeholder="Price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+          required
+        />
+
         <button type="submit">Add Plant</button>
       </form>
     </div>
@@ -15,3 +64,4 @@ function NewPlantForm() {
 }
 
 export default NewPlantForm;
+
